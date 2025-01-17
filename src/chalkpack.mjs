@@ -19,6 +19,8 @@ export let l = {
   br: () => {console.log("")}
 }
 export let DEFAULT_HANDLE_LOG_OPTIONS = {timing: false, prefix: "--> ", preBr: false, postBr: false}
+export async function _handleLogBrowser({}) {}
+export async function _handleLogServer({}) {}
 // TODO: (matt): add buffer option to not use console but an array storage...
 // TODO: (matt): can change all vary the main functions for browser or node... since they are called often there is no harm duplicating it... as some stuff is not necesssary...
 export async function _handleLog({
@@ -66,11 +68,20 @@ export function chalkpack({options = {timings: false, target: 'console'}}) {
     const def = map[key]
     const c = def.c
     const m = chalk[c]
-    // todo: (matt): since the logger is proxied to do the slight additions, we could bind the same function so it can be inlined easier.. rather than two identical copies?
-    if (def.a) def.a.forEach(a => {l[a] = _proxyLogs(options)})
-    l[key] = _proxyLogs(options)
+    const proxiedLog = _proxyLogs(options)
+    if (def.a) def.a.forEach(a => {l[a] = proxiedLog})
+    l[key] = proxiedLog
   })
   return l
+}
+// use this in DEV mode chains so that you can avoid some insane problems... chalkpack is always going to use l. 
+export function safeRegister() {
+  if (!canRegister()) {
+    console.error('cannot register chalkpack: exiting')
+    return
+  }
+  else 
+    register()
 }
 // clobber
 export function register() {
@@ -85,5 +96,5 @@ export function canRegister() {
   return !globalThis["l"]
 }
 export default {
-  register, chalkpack
+  safeRegister, register, chalkpack
 }
