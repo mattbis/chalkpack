@@ -21,7 +21,7 @@ export const map = {
 export let l = {
   br: () => {console.log("")}
 }
-export let DEFAULT_HANDLE_LOG_OPTIONS = {timing: false, prefix: "--> ", preBr: false, postBr: false}
+export let DEFAULT_HANDLE_LOG_OPTIONS = {timings: false, prefix: "--> ", preBr: false, postBr: false}
 export let DEFAULT_TARGET_OPTION = {target: 'console'}
 export let DEFAULT_TARGET_ARRAY = {target: 'array' }
 export let DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
@@ -46,7 +46,7 @@ export async function _handleLog({
   else {
     //msgs = options.prefix.concat(msgs.toString())
   }
-  if (options.timing) Date.now().concat(msgs)
+  if (options.timings) Date.now().concat(msgs)
   if (options.preBr) postLog("")
   switch (level) {
     case "warn":
