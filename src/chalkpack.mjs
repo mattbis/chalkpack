@@ -67,15 +67,12 @@ export function chalkpack({options = {timings: false}}) {
   });
   return l;
 }
+// clobber
 export function register() {
-  if (!isGlobalThisLChalkpack()) {
-    console.error('another package has already registered this globalThis["l"])')
-    console.error('refusing to continue')
-    return
-  }
   if (_cached.is(emptyObject)) {_cached = chalkpack()}
   if (!globalThis["l"]) globalThis["l"] = _cached
 }
+// check if .l is chalkpack
 export function isGlobalThisLChalkpack() {
   return globalThis["l"].chalk_pack_now && globalThis["l"].id.includes("chalkpack")
 }
