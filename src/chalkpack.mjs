@@ -61,6 +61,7 @@ export function chalkpack({options = {timings: false}}) {
     const def = map[key]
     const c = def.c
     const m = chalk[c]
+    // todo: (matt): since the logger is proxied to do the slight additions, we could bind the same function so it can be inlined easier.. rather than two identical copies?
     if (def.a) def.a.forEach(a => {l[a] = _proxyLogs(options)})
     l[key] = _proxyLogs(options)
   });
