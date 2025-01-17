@@ -103,9 +103,10 @@ export function canRegister() {
 }
 // TODO: (matt): how this should work next... so the module is completed... 
 // set the type of logger dynamically from: as modifier c a r , each can be used the same time.... 
-// 'console' ==> std out memory , // default always mandatory
-// 'array' ==> node js memory for live application // the log is recorded into memory
-// 'rolling' ==> disk buffered write chunks // the logs which might be array or not , as used as a rolling buffer, that is async 
+// 'console' ==> std out memory , // default optional since it will slow down application
+// 'array' ==> node js memory for live application // the log is recorded into memory this will be faster
+// todo: below is hmmmmm
+// 'rolling' ==> disk buffered write chunks // the logs which might be array or not , as used as a rolling buffer, that is async ... writes are delayed....
 export default {
   safeRegister, register, isRegistered, chalkpack
 }
