@@ -1,5 +1,13 @@
 import {chalk} from "chalk"
 import {default as isString} from "is-string"
+// todo: the module will have to be set a mode before.init()
+// get a reference to the current console....
+// let __runTimeConsoleRef
+// function init() {
+//   __runTimeConsoleRef = console
+// }
+// function setup() {
+// }
 // todo: (matt): if node then 
 // import {boxen} from "boxen"
 const emptyObject = {}
@@ -18,8 +26,12 @@ export const map = {
   yes: {c:"green",a:["y"]},
   no: {c:"gray",a:["n"]}
 }
+function putLog() {}
+function pushLogs() {}
+// if we have rollign or array we can never directly address console... 
 export let l = {
   br: () => {console.log("")}
+  // ==> br: () => {putLog()}
 }
 export let DEFAULT_HANDLE_LOG_OPTIONS = {timings: false, prefix: "--> ", preBr: false, postBr: false}
 export let DEFAULT_TARGET_OPTION = {target: 'console'}
