@@ -1,6 +1,7 @@
 import {chalk} from "chalk"
-import {boxen} from "boxen"
 import {default as isString} from "is-string"
+// todo: (matt): if node then 
+// import {boxen} from "boxen"
 const emptyObject = {}
 // is the generated logger
 let _cached = {}
