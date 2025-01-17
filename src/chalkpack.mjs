@@ -2,7 +2,10 @@ import {chalk} from "chalk"
 import {boxen} from "boxen"
 import {default as isString} from "is-string"
 const emptyObject = {}
+// is the generated logger
 let _cached = {}
+// is the export of logs
+let _logs = {}
 export const map = {
   error: {c:"red",a:["e"]},
   info: {c:"white",a:["i"]},
@@ -14,10 +17,11 @@ export const map = {
 export let l = {
   br: () => {console.log("")}
 }
+export let DEFAULT_HANDLE_LOG_OPTIONS = {timing: false, prefix: "--> ", preBr: false, postBr: false}
 // TODO: (matt): add buffer option to not use console but an array storage...
 // TODO: (matt): can change all vary the main functions for browser or node... since they are called often there is no harm duplicating it... as some stuff is not necesssary...
 export async function _handleLog({
-  level, msgs, options = {timing: false, prefix: "--> ", preBr: false, postBr: false}
+  level, msgs, options = DEFAULT_HANDLE_LOG_OPTIONS
 }) {
   if (!level) level = "log"
   if (!isString(level)) level.toString()
@@ -54,7 +58,7 @@ export function _proxyLogs(options) {
     })
   }
 }
-export function chalkpack({options = {timings: false}}) {
+export function chalkpack({options = {timings: false, target: 'console'}}) {
   l.chalk_pack_now = Date.now()
   l.id = 'chalkpack'
   Object.keys(map).forEach((key) => {
@@ -75,6 +79,9 @@ export function register() {
 // check if .l is chalkpack
 export function isGlobalThisLChalkpack() {
   return globalThis["l"].chalk_pack_now && globalThis["l"].id.includes("chalkpack")
+}
+export function canRegister() {
+  return !globalThis["l"]
 }
 export default {
   register, chalkpack
