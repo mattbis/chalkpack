@@ -15,6 +15,7 @@ export let l = {
   br: () => {console.log("")}
 }
 // TODO: (matt): add buffer option to not use console but an array storage...
+// TODO: (matt): can change all vary the main functions for browser or node... since they are called often there is no harm duplicating it... as some stuff is not necesssary...
 export async function _handleLog({
   level, msgs, options = {timing: false, prefix: "--> ", preBr: false, postBr: false}
 }) {
