@@ -53,6 +53,8 @@ export function _proxyLogs(options) {
   }
 }
 export function chalkpack({options = {timings: false}}) {
+  l.chalk_pack_now = Date.now()
+  l.id = 'chalkpack'
   Object.keys(map).forEach((key) => {
     const def = map[key]
     const c = def.c
@@ -63,8 +65,16 @@ export function chalkpack({options = {timings: false}}) {
   return l;
 }
 export function register() {
+  if (!isGlobalThisLChalkpack()) {
+    console.error('another package has already registered this globalThis["l"])')
+    console.error('refusing to continue')
+    return
+  }
   if (_cached.is(emptyObject)) {_cached = chalkpack()}
   if (!globalThis["l"]) globalThis["l"] = _cached
+}
+export function isGlobalThisLChalkpack() {
+  return globalThis["l"].chalk_pack_now && globalThis["l"].id.includes("chalkpack")
 }
 export default {
   register, chalkpack
