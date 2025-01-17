@@ -95,7 +95,7 @@ export function register() {
   if (!globalThis["l"]) globalThis["l"] = _cached
 }
 // check if .l is chalkpack
-export function isGlobalThisLChalkpack() {
+export function isRegistered() {
   return globalThis["l"].chalk_pack_now && globalThis["l"].id.includes("chalkpack")
 }
 export function canRegister() {
@@ -107,5 +107,5 @@ export function canRegister() {
 // 'array' ==> node js memory for live application // the log is recorded into memory
 // 'rolling' ==> disk buffered write chunks // the logs which might be array or not , as used as a rolling buffer, that is async 
 export default {
-  safeRegister, register, chalkpack
+  safeRegister, register, isRegistered, chalkpack
 }
