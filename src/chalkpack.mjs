@@ -1,4 +1,4 @@
-import { chalk } from "chalk"
+import {chalk} from "chalk"
 import {boxen} from "boxen"
 import {default as isString} from "is-string"
 const emptyObject = {}
@@ -64,8 +64,8 @@ export function chalkpack({options = {timings: false}}) {
     // todo: (matt): since the logger is proxied to do the slight additions, we could bind the same function so it can be inlined easier.. rather than two identical copies?
     if (def.a) def.a.forEach(a => {l[a] = _proxyLogs(options)})
     l[key] = _proxyLogs(options)
-  });
-  return l;
+  })
+  return l
 }
 // clobber
 export function register() {
