@@ -2,7 +2,7 @@ import { chalk } from "chalk"
 import {boxen} from "boxen"
 import {default as isString} from "is-string"
 const emptyObject = {}
-const _cached = {}
+let _cached = {}
 export const map = {
   error: {c:"red",a:["e"]},
   info: {c:"white",a:["i"]},
@@ -19,17 +19,18 @@ export let l = {
 export async function _handleLog({
   level, msgs, options = {timing: false, prefix: "--> ", preBr: false, postBr: false}
 }) {
-  const postLog = console[level] // cache local
   if (!level) level = "log"
   if (!isString(level)) level.toString()
+  const postLog = console[level] // cache local
   if (!msgs) msgs = ""
+
+  // ifBrowser() handle references.. dont mangle
   // first get the type of the messages
-  const messagesType = Object.prototype.toString.call(msgs)
+  // const messagesType = Object.prototype.toString.call(msgs)
 
   // its safe to add it here with these types
   if (Array.isArray(msgs) || isString(msgs)) msgs = options.prefix.concat(msgs)
   else {
-    //if we change it the browser will not be able to parse the log data
     //msgs = options.prefix.concat(msgs.toString())
   }
   if (options.timing) Date.now().concat(msgs)
