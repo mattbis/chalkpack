@@ -5,8 +5,11 @@ import {default as isString} from "is-string"
 const emptyObject = {}
 // is the generated logger
 let _cached = {}
-// is the export of logs
-let _logs = {}
+// is the export of logs as collection of arrays - memory growth....
+let _logs = {
+  // ==> .info
+  // ==> .warn
+}
 export const map = {
   error: {c:"red",a:["e"]},
   info: {c:"white",a:["i"]},
@@ -19,6 +22,9 @@ export let l = {
   br: () => {console.log("")}
 }
 export let DEFAULT_HANDLE_LOG_OPTIONS = {timing: false, prefix: "--> ", preBr: false, postBr: false}
+export let DEFAULT_TARGET_OPTION = {target: 'console'}
+export let DEFAULT_TARGET_ARRAY = {target: 'array' }
+export let DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
 export async function _handleLogBrowser({}) {}
 export async function _handleLogServer({}) {}
 // TODO: (matt): add buffer option to not use console but an array storage...
@@ -95,6 +101,11 @@ export function isGlobalThisLChalkpack() {
 export function canRegister() {
   return !globalThis["l"]
 }
+// TODO: (matt): how this should work next... so the module is completed... 
+// set the type of logger dynamically from: as modifier c a r , each can be used the same time.... 
+// 'console' ==> std out memory , // default always mandatory
+// 'array' ==> node js memory for live application // the log is recorded into memory
+// 'rolling' ==> disk buffered write chunks // the logs which might be array or not , as used as a rolling buffer, that is async 
 export default {
   safeRegister, register, chalkpack
 }
