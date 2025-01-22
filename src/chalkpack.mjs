@@ -23,8 +23,8 @@ let _cached = {}
 // TODO: prototype pollutions
 // TODO: c,a,r to change what happens
 // TODO: whether atomic structures or shared things are a good idea.. probably not
-// TODO: the check for existence is particularly good...
-// TODO: saveLogs
+// TODO: the check for existence is not particularly good...
+// TODO: async - maybe worker or cluster saveLogs ( no blocks ) but this is exit.. so we prob don't need to worry.. however, if you had some kinda debug option.. this might be useful to not block the entire thing.... 
 
 //   __runTimeConsoleRef = console
 //function putLog() {}
