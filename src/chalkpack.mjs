@@ -36,9 +36,7 @@ export let l = {
   // ==> br: () => {putLog()}
 }
 
-// allow it to be let... which isn't a great idea, but if the code is protected
-// and the app is local... id rather its easy to change...
-export let DEFAULT_HANDLE_LOG_OPTIONS = {
+export const DEFAULT_HANDLE_LOG_OPTIONS = {
   timing: false,
   prefix: "--> ", // ==> --> [thing]
   preBr: false, postBr: false
