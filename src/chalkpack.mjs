@@ -67,7 +67,15 @@ export const DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
 // a buffer of the most recent logs - set by some age
 export const DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
 
+// using an instance of circular buffer, wait until .saturated() and then write to disk
 export const DEFAULT_CHUNK_WRITES = {chunk_writes: !0}
+
+// enables eventEmitter...
+export const DEFAULT_EMIT = {emit: !0}
+
+// TODO: whether unroll and other way is faster, you could have a lookup table of various lengths but it would bloat the runtime...
+// considering how many calls js makes, and so many packages....... 
+export const __make_line = (num, char = "_") => Array(num).fill(char).join("")
 
 // TODO: then you can subscribe to the circular option, or the array to set everything
 export async function _handleLogBrowser({}) {}
@@ -103,7 +111,7 @@ export async function _handleLog({
     //if we change it the browser will not be able to parse the log data
     //msgs = options.prefix.concat(msgs.toString())
   }
-  if (options.timing) Date.now().concat(msgs)
+  if (options.timings) Date.now().concat(msgs)
   if (options.preBr) postLog("")
   switch (level) {
     case "warn":
