@@ -1,5 +1,14 @@
 {
   "name": "chalkpack",
   "type": "module",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "rollup",
+    "time": "time node src/test/index.mjs"
+  },
+  "devDependencies": {
+    "tape": "",
+    "jest": "",
+    "rollup": ""
+  }
 }
