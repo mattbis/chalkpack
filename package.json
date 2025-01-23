@@ -1,3 +1,5 @@
 {
-  "name": "chalkpack"
+  "name": "chalkpack",
+  "type": "module",
+  "license": "GPL-3.0"
 }
