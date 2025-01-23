@@ -1,4 +1,5 @@
-// TODO: I think I want zero deps... so I will just copy and condense how these projects work... ( including some kinda license )
+// TODO: I think I want zero deps... so I will just copy and condense how these projects work... ( including some kinda license ). The deps will remain in pkg json
+
 import chalk from "chalk"
 import boxen from "boxen"
 import {default as isString} from "is-string"
@@ -47,15 +48,21 @@ export const DEFAULT_HANDLE_LOG_OPTIONS = {
 
 // the console is used its not persisted
 export let DEFAULT_TARGET_OPTION = {target: 'console'}
+
 // the logs go to arrays... you have to save them
 export let DEFAULT_TARGET_ARRAY = {target: 'array' }
+
+// the logs roll onto disk ( really not recommended )
 export let DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
+
+// a buffer of the most recent logs - set by some age
 export let DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
+
+// TODO: then you can subscribe to the circular option, or the array to set everything
 
 export async function _handleLogBrowser({}) {}
 export async function _handleLogServer({}) {}
 
-// TODO: (matt): add buffer option to not use console but an array storage...
 export async function _handleLog({
   level,
   msgs,
@@ -69,6 +76,12 @@ export async function _handleLog({
     if (!options.postBr) options.postBr = true
   }
   if (!msgs) msgs = "[log]"
+
+  // when it node we can manipulate the formatting better, hence handleLogBrowser
+  // however what I ideally need to do is make a giant function that does the entire thing for each runtime type...
+
+  // TODO: use mad cache technique from fastify ..
+  // TODO: 
 
   // first get the type of the messages
   //const messagesType = Object.prototype.toString.call(msgs)

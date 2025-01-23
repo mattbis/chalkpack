@@ -2,9 +2,17 @@
   "name": "chalkpack",
   "type": "module",
   "license": "GPL-3.0",
+  "author": "mattbis",
   "scripts": {
     "build": "rollup",
-    "time": "time node src/test/index.mjs"
+    "time": "time node test/test.mjs --main",
+    "manifest:check": "node sh/manifest.mjs --check"
+  },
+  "dependencies": {
+    "chalk": "",
+    "boxen": "",
+    "is-string": "",
+    "es-main": ""
   },
   "devDependencies": {
     "tape": "",
