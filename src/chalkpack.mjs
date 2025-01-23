@@ -51,20 +51,20 @@ export const DEFAULT_HANDLE_LOG_OPTIONS = {
 }
 
 // the console is used its not persisted
-export let DEFAULT_TARGET_OPTION = {target: 'console'}
+export const DEFAULT_TARGET_OPTION = {target: 'console'}
 
 // the logs go to arrays... you have to save them
-export let DEFAULT_TARGET_ARRAY = {target: 'array' }
+export const DEFAULT_TARGET_ARRAY = {target: 'array' }
 
 // the logs go to a map of sets? // hmmm
 
 // TODO: the logs are coded into a binary array
 
 // the logs roll onto disk ( really not recommended )
-export let DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
+export const DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
 
 // a buffer of the most recent logs - set by some age
-export let DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
+export const DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
 
 // TODO: then you can subscribe to the circular option, or the array to set everything
 
@@ -115,28 +115,26 @@ export async function _handleLog({
   if(options.postBr) postLog("")
   return Promise.resolve()
 }
-
-// TODO: this isn't really a great idea, performance wise...
-export function _proxyLogs(options) {
-  return async (...args) => {
-    await _handleLog({
-      ...options, level, msgs:args
-    })
-  }
+export function chalkpackBrowser({options = {timings: !1}}) {
 }
-export function chalkpack({options = {timings: false}}) {
+export function chalkpackServer({options = {timings: false}}) {
   Object.keys(map).forEach((key) => {
     const def = map[key]
     const c = def.c
     const m = chalk[c]
-    if (def.a) def.a.forEach(a => {l[a] = _proxyLogs(options)})
-    l[key] = _proxyLogs(options)
+    if (def.a) def.a.forEach(a => {l[a] = async (...args) => {
+      await _handleLog(options)
+    }})
+    l[key] = async (...args) => {
+      await _handleLog(options)
+    }
   });
   return l;
 }
 export function _persistLogs() {}
 export function isRegistered() {
-  return globalThis["l"].chalk_pack_now && globalThis["l"].id.includes("chalkpack")
+  return globalThis["l"].chalk_pack_now && 
+    globalThis["l"].id.includes("chalkpack")
 }
 
 export function canRegister() {
@@ -155,6 +153,12 @@ export function _safeRegisterChalkpack() {
 }
 
 export default function registerChalkpack() {
-  if (_cached.is(emptyObject)) {_cached = chalkpack()}
-  if (!globalThis["l"]) globalThis["l"] = _cached
+
+  // determine the runtime host... 
+
+  // register using the tailored function
+
+  //if (_cached.is(emptyObject)) {_cached = chalkpack()}
+  //if (!globalThis["l"]) globalThis["l"] = _cached
 }
+
