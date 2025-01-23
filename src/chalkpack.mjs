@@ -58,6 +58,7 @@ export const DEFAULT_TARGET_ARRAY = {target: 'array' }
 
 // the logs go to a map of sets? // hmmm
 
+
 // TODO: the logs are coded into a binary array
 
 // the logs roll onto disk ( really not recommended )
@@ -66,8 +67,9 @@ export const DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
 // a buffer of the most recent logs - set by some age
 export const DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
 
-// TODO: then you can subscribe to the circular option, or the array to set everything
+export const DEFAULT_CHUNK_WRITES = {chunk_writes: !0}
 
+// TODO: then you can subscribe to the circular option, or the array to set everything
 export async function _handleLogBrowser({}) {}
 export async function _handleLogServer({}) {}
 
