@@ -25,6 +25,8 @@ let _cached = {}
 // TODO: whether atomic structures or shared things are a good idea.. probably not
 // TODO: the check for existence is not particularly good...
 // TODO: async - maybe worker or cluster saveLogs ( no blocks ) but this is exit.. so we prob don't need to worry.. however, if you had some kinda debug option.. this might be useful to not block the entire thing.... 
+// TODO: iso save -> fs.write || [browser] storage... ( this is not a bad idea for some web apps/ apps  - particularly when building something that requires a lot of logging
+
 
 //   __runTimeConsoleRef = console
 //function putLog() {}
