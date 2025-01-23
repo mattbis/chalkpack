@@ -4,6 +4,10 @@ import chalk from "chalk"
 import boxen from "boxen"
 import {default as isString} from "is-string"
 
+
+// TODO: I am thinking perhaps we have a script that uses code mod on the above, so i dont need to manually merge it!!!
+
+
 const emptyObject = {}
 
 export const map = {
@@ -51,6 +55,10 @@ export let DEFAULT_TARGET_OPTION = {target: 'console'}
 
 // the logs go to arrays... you have to save them
 export let DEFAULT_TARGET_ARRAY = {target: 'array' }
+
+// the logs go to a map of sets? // hmmm
+
+// TODO: the logs are coded into a binary array
 
 // the logs roll onto disk ( really not recommended )
 export let DEFAULT_TARGET_ROLLING_BUFFER = {target: 'rolling'}
