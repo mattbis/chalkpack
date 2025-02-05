@@ -1,13 +1,15 @@
 // TODO: I think I want zero deps... so I will just copy and condense how these projects work... ( including some kinda license ). The deps will remain in pkg json
 
+// #region 3p
 import chalk from "chalk"
 import boxen from "boxen"
 import {default as isString} from "is-string"
+// #endregion 3p
 
 
 // TODO: I am thinking perhaps we have a script that uses code mod on the above, so i dont need to manually merge it!!!
 
-
+// #region config
 const emptyObject = {}
 
 export const map = {
@@ -17,14 +19,19 @@ export const map = {
   head: {c:"cyan", a:["h"]},
   warn: {c:"yellow", a:["w"]},
   yes: {c:"green", a:["y"]},
-  no: {c:"gray", a:["n"]}
+  no: {c:"gray", a:["n"]},
+  // used for a series of key pairs, with auto .br()
+  k: {c:"green", a:['k']},
+  v: {c:"blue", a:['v']}
 }
+// #endregion config
 
 let _cached = {}
 
 // 1: make it work just node for now
 // 2: then do the other stuff... plenty of much better loggers exist.. the only real reason for this is just its tiny / apps / cli / runtime elec && the main reason is I just want something very simple.. l.br() l.i() l.head() that is it .. nothing but a simple palette... to many Ts/Js packages and apps are huge...
 
+// TODO: .kv(['1a','1b','2a','2b']) formatted
 // TODO: detect the host as browser / not a browser
 // TODO: prototype pollutions
 // TODO: c,a,r to change what happens
@@ -70,7 +77,9 @@ export const DEFAULT_TARGET_CIRCULAR_BUFFER = {target: 'circular'}
 export const DEFAULT_CHUNK_WRITES = {chunk_writes: !0}
 
 // TODO: then you can subscribe to the circular option, or the array to set everything
-export async function _handleLogBrowser({}) {}
+export async function _handleLogBrowser({}) {
+  const postLog = console[level] // cache local
+}
 export async function _handleLogServer({}) {}
 
 export async function _handleLog({
@@ -78,7 +87,6 @@ export async function _handleLog({
   msgs,
   options = DEFAULT_HANDLE_LOG_OPTIONS
 }) {
-  const postLog = console[level] // cache local
   if (!level) level = "log"
   if (!isString(level)) level.toString()
   if (level === "h" || level === "head") {
@@ -91,7 +99,6 @@ export async function _handleLog({
   // however what I ideally need to do is make a giant function that does the entire thing for each runtime type...
 
   // TODO: use mad cache technique from fastify ..
-  // TODO: 
 
   // first get the type of the messages
   //const messagesType = Object.prototype.toString.call(msgs)
@@ -108,6 +115,7 @@ export async function _handleLog({
   switch (level) {
     case "warn":
     case "error":
+      // TODO: (matt): when its error handle the error object
       postLog(boxen(msgs, {title: level.toUpperCase(), titleAlignment: 'center'}))
       break;
     default:
@@ -117,9 +125,20 @@ export async function _handleLog({
   if(options.postBr) postLog("")
   return Promise.resolve()
 }
-export function chalkpackBrowser({options = {timings: !1}}) {
+export function __each_k_v(keyValCollection) {
+  let i = keyValCollection.length-1
+  do {
+    let k = keyValCollection[i]
+    let v = keyValCollection[i-1]
+    // Colour the key and the value
+    chalk.yellow()
+    chalk.blue()
+  } 
+  while(i-2)
 }
-export function chalkpackServer({options = {timings: false}}) {
+export function __chalkpack_browser({options = {timings: !1}}) {
+}
+export function __chalkpack_server({options = {timings: false}}) {
   Object.keys(map).forEach((key) => {
     const def = map[key]
     const c = def.c
@@ -133,20 +152,20 @@ export function chalkpackServer({options = {timings: false}}) {
   });
   return l;
 }
-export function _persistLogs() {}
-export function isRegistered() {
+export function persist_logs() {}
+export function is_registered() {
   return globalThis["l"].chalk_pack_now && 
     globalThis["l"].id.includes("chalkpack")
 }
 
-export function canRegister() {
+export function can_register() {
   return !globalThis["l"] && !isRegistered()
 }
 
 // use this in DEV mode chains so that you can avoid some insane problems... chalkpack is always going to use l.
 // I'm marking this underscore, in that its unlikely to be used much and is more debug the tool chain
-export function _safeRegisterChalkpack() {
-  if (!canRegister()) {
+export function _safe_register_chalkpack() {
+  if (!can_register()) {
     console.error('cannot register chalkpack: exiting')
     return
   }
@@ -154,7 +173,7 @@ export function _safeRegisterChalkpack() {
     register()
 }
 
-export default function registerChalkpack() {
+export default function register_chalkpack() {
 
   // determine the runtime host... 
 
